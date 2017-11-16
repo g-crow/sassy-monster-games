@@ -7,7 +7,6 @@ class Cell extends React.Component {
     let isActive = '';
     for (let i = 0; i < this.props.activeCells.length; i++) {
       if (this.props.activeCells[i].xCordinate === this.props.xCordinate && this.props.activeCells[i].yCordinate === this.props.yCordinate) {
-        console.log('should be active', 'checking index', i);
         isActive = 'is--active';
       }
     }
