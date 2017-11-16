@@ -1,0 +1,37 @@
+html, body {
+    height: 100%;
+}
+
+html {
+    display: table;
+    margin: auto;
+}
+
+body {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.title {
+  color: rgb(173, 5, 66);
+  font-size: 40px;
+}
+
+.row {
+  display: flex;
+}
+
+.cell {
+  text-align: center;
+  height: 3em;
+  width: 3em;
+  background-color: rgb(192, 207, 219);
+  border-style: solid;
+  border-width: .1em;
+  border-color: black;
+}
+
+.is--active {
+  background-color: rgb(173, 5, 66);
+}
