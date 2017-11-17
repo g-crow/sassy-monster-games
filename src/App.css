@@ -8,14 +8,23 @@ html {
 }
 
 body {
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  background-image: url('https://preview.ibb.co/ipfNsm/snakeskin.jpg');
 }
 
-.title {
-  color: rgb(173, 5, 66);
-  font-size: 40px;
+.game-wrapper {
+  padding: 20px 80px;
+  background-color: aliceblue;
+}
+
+.title-text  {
+  color: rgb(235, 245, 236);
+  background-color: rgb(173, 5, 66);
+  font-size: 50px;
+  border-radius: 20px;
+  padding: 8px;
 }
 
 .row {
@@ -34,4 +43,35 @@ body {
 
 .is--active {
   background-color: rgb(173, 5, 66);
+}
+
+.is--active:after {
+  content: ":)";
+}
+
+.buttons {
+  padding: 30px;
+  background-color: aliceblue;
+}
+
+.btn {
+  width: 25%;
+  margin: 0px 10px;
+  padding: 10px 0px;
+  font-size: 20px;
+  background-color: whitesmoke;
+  color: maroon;
+
+}
+
+.btn:hover {
+  cursor: pointer;
+}
+
+.level-indicator {
+  padding: 15px;
+}
+
+.invisible-input {
+  opacity: 0;
 }
