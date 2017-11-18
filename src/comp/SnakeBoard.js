@@ -23,7 +23,7 @@ class SnakeBoard extends React.Component {
       activeCells: [{xCordinate: 0, yCordinate: 9}],
       // The active cell the user controls. Other cells follow.
       avatarCell: [{xCordinate: 0, yCordinate: 9}],
-      directionOfMovement: 'FORWARD',
+      directionOfMovement: 'RIGHT',
       keyPressState: 'ACTIVE'
     };
     this.startGame = this.startGame.bind(this);
@@ -35,20 +35,89 @@ class SnakeBoard extends React.Component {
   startGame() {
     this.focusInput();
     this.setState({
-      directionOfMovement: 'FORWARD'
+      directionOfMovement: 'RIGHT'
     })
-    this.advanceAvatarForward();
+    this.advanceAvatarRight();
   }
 
-  advanceAvatarForward() {
+  // TODO - Consolidate the directional movement code!!!
+
+  advanceAvatarRight() {
     if (this.state.debug) {
       console.log('advanceAvatarForward();');
     }
+    this.setState({
+      directionOfMovement: 'RIGHT'
+    });
     setInterval(() => {
-      if (this.state.directionOfMovement === 'FORWARD')  {
+      if (this.state.directionOfMovement === 'RIGHT') {
         // Make a copy of the current active cells.
         let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate + 1;
         let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate;
+        let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
+        this.setState({
+          activeCells: newActiveCells,
+          avatarCell: newActiveCells
+        });
+      }
+    }, 1000)
+  }
+
+  advanceAvatarLeft() {
+    if (this.state.debug) {
+      console.log('advanceAvatarLeft();');
+    }
+    this.setState({
+      directionOfMovement: 'LEFT'
+    });
+    setInterval(() => {
+      if (this.state.directionOfMovement === 'LEFT') {
+        // Make a copy of the current active cells.
+        let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
+        let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate + 1;
+        let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
+        this.setState({
+          activeCells: newActiveCells,
+          avatarCell: newActiveCells
+        });
+      }
+    }, 1000)
+  }
+
+
+  advanceAvatarUp() {
+    if (this.state.debug) {
+      console.log('advanceAvatarUp();');
+    }
+    this.setState({
+      directionOfMovement: 'UP'
+    });
+    setInterval(() => {
+      if (this.state.directionOfMovement === 'UP') {
+        // Make a copy of the current active cells.
+        let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
+        let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate + 1;
+        let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
+        this.setState({
+          activeCells: newActiveCells,
+          avatarCell: newActiveCells
+        });
+      }
+    }, 1000)
+  }
+
+  advanceAvatarDown() {
+    if (this.state.debug) {
+      console.log('advanceAvatarDown();');
+    }
+    this.setState({
+      directionOfMovement: 'DOWN'
+    });
+    setInterval(() => {
+      if (this.state.directionOfMovement === 'DOWN') {
+        // Make a copy of the current active cells.
+        let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
+        let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate - 1;
         let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
         this.setState({
           activeCells: newActiveCells,
@@ -89,8 +158,30 @@ class SnakeBoard extends React.Component {
     hiddenInput.focus();
   }
 
-  handleKeyDown() {
-    console.log('handling key press');
+  handleKeyDown(e) {
+    if (e.keyCode === 38) {
+      if (this.state.debug) {
+        console.log('handling up-arrow key press');
+      }
+      this.advanceAvatarUp();
+    } else if (e.keyCode === 40) {
+      if (this.state.debug) {
+        console.log('handling down-arrow key press');
+      }
+      this.advanceAvatarDown();
+    } else if (e.keyCode === 39) {
+      if (this.state.debug) {
+        console.log('handling right-arrow key press');
+      }
+      this.advanceAvatarRight();
+    } else if (e.keyCode === 37) {
+      if (this.state.debug) {
+        console.log('handling left-arrow key press');
+      }
+      this.advanceAvatarLeft();
+    } else {
+      console.log('Another key pressed. Do something else.')
+    }
   }
 
   render() {
@@ -119,7 +210,7 @@ class SnakeBoard extends React.Component {
             levelUp={this.levelUp}
             />
 
-          <input id="key-down-controller" className="invisible-input" onKeyDown={() => this.handleKeyDown()}></input>
+          <input id="key-down-controller" className="invisible-input" onKeyDown={(e) => this.handleKeyDown(e)}></input>
 
         </div>
       </div>

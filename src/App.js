@@ -6,9 +6,11 @@ import SnakeBoard from './comp/SnakeBoard';
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="app">
 
         <SnakeBoard />
+
+        <a href="#" id="instructions-modal-trigger" className="instructions">Instructions</a>
 
       </div>
     );
