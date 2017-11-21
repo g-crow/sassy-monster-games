@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import SnakeBoard from './comp/SnakeBoard';
+import Board from './comp/Board';
 
 class App extends Component {
   render() {
     return (
       <div className="app">
 
-        <SnakeBoard />
+        <Board />
 
         <a href="#" id="instructions-modal-trigger" className="instructions">Instructions</a>
 

@@ -8,10 +8,10 @@ import LevelIndicator from './LevelIndicator';
 
 const Title = () =>
   <div className="title">
-    <h1 className="title-text">Sassy Snake Monster</h1>
+    <h1 className="title-text">Game 1</h1>
   </div>
 
-class SnakeBoard extends React.Component {
+class Board extends React.Component {
 
   constructor(props) {
     super(props);
@@ -37,14 +37,18 @@ class SnakeBoard extends React.Component {
     this.setState({
       directionOfMovement: 'RIGHT'
     })
-    this.advanceAvatarRight();
+    this.advanceAvatar();
   }
 
-  // TODO - Consolidate the directional movement code!!!
+  setDirectionOfMovement(direction) {
+    this.setState({
+      directionOfMovement: direction
+    });
+  }
 
-  advanceAvatarRight() {
+  advanceAvatar() {
     if (this.state.debug) {
-      console.log('advanceAvatarForward();');
+      console.log('advanceAvatarRight();');
     }
     this.setState({
       directionOfMovement: 'RIGHT'
@@ -163,22 +167,22 @@ class SnakeBoard extends React.Component {
       if (this.state.debug) {
         console.log('handling up-arrow key press');
       }
-      this.advanceAvatarUp();
+      this.setDirectionOfMovement('UP');
     } else if (e.keyCode === 40) {
       if (this.state.debug) {
         console.log('handling down-arrow key press');
       }
-      this.advanceAvatarDown();
+      this.setDirectionOfMovement('DOWN');
     } else if (e.keyCode === 39) {
       if (this.state.debug) {
         console.log('handling right-arrow key press');
       }
-      this.advanceAvatarRight();
+      this.setDirectionOfMovement('RIGHT');
     } else if (e.keyCode === 37) {
       if (this.state.debug) {
         console.log('handling left-arrow key press');
       }
-      this.advanceAvatarLeft();
+      this.setDirectionOfMovement('LEFT');
     } else {
       console.log('Another key pressed. Do something else.')
     }
@@ -218,4 +222,4 @@ class SnakeBoard extends React.Component {
   }
 }
 
-export default SnakeBoard;
+export default Board;
