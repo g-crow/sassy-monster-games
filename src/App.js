@@ -8,9 +8,7 @@ class App extends Component {
     return (
       <div className="app">
 
-        <Board />
-
-        <a href="#" id="instructions-modal-trigger" className="instructions">Instructions</a>
+        <Board /> 
 
       </div>
     );

@@ -6,11 +6,6 @@ import LevelIndicator from './LevelIndicator';
 
 // TODO - figure out how to handle key press events without the stupid input workaround
 
-const Title = () =>
-  <div className="title">
-    <h1 className="title-text">Game 1</h1>
-  </div>
-
 class Board extends React.Component {
 
   constructor(props) {
@@ -29,6 +24,7 @@ class Board extends React.Component {
     this.startGame = this.startGame.bind(this);
     this.pauseGame = this.pauseGame.bind(this);
     this.levelUp = this.levelUp.bind(this);
+    this.setGridSize = this.setGridSize.bind(this);
   }
 
   // Initiate avatar's movement. Focus the hidden input so the game listens for key events.
@@ -37,7 +33,7 @@ class Board extends React.Component {
     this.setState({
       directionOfMovement: 'RIGHT'
     })
-    this.advanceAvatar();
+    this.advanceAvatar('RIGHT');
   }
 
   setDirectionOfMovement(direction) {
@@ -46,89 +42,33 @@ class Board extends React.Component {
     });
   }
 
-  advanceAvatar() {
+  advanceAvatar(direction) {
     if (this.state.debug) {
-      console.log('advanceAvatarRight();');
+      console.log('advanceAvatar', direction);
     }
-    this.setState({
-      directionOfMovement: 'RIGHT'
-    });
+    let newAvatarCellXCordinate;
+    let newAvatarCellYCordinate;
     setInterval(() => {
       if (this.state.directionOfMovement === 'RIGHT') {
-        // Make a copy of the current active cells.
-        let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate + 1;
-        let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate;
-        let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
-        this.setState({
-          activeCells: newActiveCells,
-          avatarCell: newActiveCells
-        });
+        newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate + 1;
+        newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate;
+      } else if (this.state.directionOfMovement === 'LEFT') {
+        newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate - 1;
+        newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate;
+      } else if (this.state.directionOfMovement === 'UP') {
+        newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
+        newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate + 1;
+      } else if (this.state.directionOfMovement === 'DOWN') {
+        newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
+        newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate - 1;
       }
-    }, 1000)
-  }
-
-  advanceAvatarLeft() {
-    if (this.state.debug) {
-      console.log('advanceAvatarLeft();');
-    }
-    this.setState({
-      directionOfMovement: 'LEFT'
-    });
-    setInterval(() => {
-      if (this.state.directionOfMovement === 'LEFT') {
-        // Make a copy of the current active cells.
-        let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
-        let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate + 1;
-        let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
-        this.setState({
-          activeCells: newActiveCells,
-          avatarCell: newActiveCells
-        });
-      }
-    }, 1000)
-  }
-
-
-  advanceAvatarUp() {
-    if (this.state.debug) {
-      console.log('advanceAvatarUp();');
-    }
-    this.setState({
-      directionOfMovement: 'UP'
-    });
-    setInterval(() => {
-      if (this.state.directionOfMovement === 'UP') {
-        // Make a copy of the current active cells.
-        let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
-        let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate + 1;
-        let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
-        this.setState({
-          activeCells: newActiveCells,
-          avatarCell: newActiveCells
-        });
-      }
-    }, 1000)
-  }
-
-  advanceAvatarDown() {
-    if (this.state.debug) {
-      console.log('advanceAvatarDown();');
-    }
-    this.setState({
-      directionOfMovement: 'DOWN'
-    });
-    setInterval(() => {
-      if (this.state.directionOfMovement === 'DOWN') {
-        // Make a copy of the current active cells.
-        let newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate;
-        let newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate - 1;
-        let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
-        this.setState({
-          activeCells: newActiveCells,
-          avatarCell: newActiveCells
-        });
-      }
-    }, 1000)
+      let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
+      console.log('setting new active cells');
+      this.setState({
+        activeCells: newActiveCells,
+        avatarCell: newActiveCells
+      });
+    }, 1000);
   }
 
   pauseGame() {
@@ -140,20 +80,23 @@ class Board extends React.Component {
     })
   }
 
-  // Level up increases level by 1, grid size by 1 until grid size reaches 14. If level is 10, user wins.
   levelUp() {
     if (this.state.level === 10) {
       alert('You win!');
       return;
     }
     const newLevel = this.state.level + 1;
-    const newGridSize = this.state.gridSize <= 14 ? this.state.gridSize + 1 : this.state.gridSize;
     if (this.state.debug) {
       console.log(`levelUp(); to ${newLevel}`);
     }
     this.setState({
-      level: newLevel,
-      gridSize: newGridSize
+      level: newLevel
+    });
+  }
+
+  setGridSize(size){
+    this.setState({
+      gridSize: size
     });
   }
 
@@ -200,19 +143,21 @@ class Board extends React.Component {
 
     return (
       <div className="game-wrapper">
-        <Title />
         <div className="gameboard-wrapper">
-          <LevelIndicator level={this.state.level} />
 
-          <div className="board">
-            {rows.reverse()}
-          </div>
+          <LevelIndicator level={this.state.level} />
 
           <Controls start={this.startGame}
             debug={this.state.debug}
             pause={this.pauseGame}
             levelUp={this.levelUp}
+            setGridSize={this.setGridSize}
+            gridSize={this.state.gridSize}
             />
+
+          <div className="board">
+            {rows.reverse()}
+          </div>
 
           <input id="key-down-controller" className="invisible-input" onKeyDown={(e) => this.handleKeyDown(e)}></input>
 
