@@ -11,6 +11,7 @@ body {
   display: table-cell;
   vertical-align: middle;
   text-align: center;
+  background-color: rgb(238, 238, 238);
 }
 
 .game-wrapper {
@@ -40,10 +41,6 @@ body {
 
 .is--active {
   background-color: rgb(20, 143, 176);
-}
-
-.is--active:after {
-  content: ":)";
 }
 
 .buttons {

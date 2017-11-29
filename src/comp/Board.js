@@ -40,6 +40,7 @@ class Board extends React.Component {
     this.setState({
       directionOfMovement: direction
     });
+    this.advanceAvatar(direction);
   }
 
   advanceAvatar(direction) {
@@ -48,7 +49,8 @@ class Board extends React.Component {
     }
     let newAvatarCellXCordinate;
     let newAvatarCellYCordinate;
-    setInterval(() => {
+    const moving = direction;
+    setTimeout(() => {
       if (this.state.directionOfMovement === 'RIGHT') {
         newAvatarCellXCordinate = this.state.avatarCell[0].xCordinate + 1;
         newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate;
@@ -63,7 +65,10 @@ class Board extends React.Component {
         newAvatarCellYCordinate = this.state.avatarCell[0].yCordinate - 1;
       }
       let newActiveCells = [{xCordinate: newAvatarCellXCordinate, yCordinate: newAvatarCellYCordinate}];
-      console.log('setting new active cells');
+      console.log('setting new active cells', moving);
+      if (this.state.directionOfMovement === moving) {
+        this.advanceAvatar(moving);
+      }
       this.setState({
         activeCells: newActiveCells,
         avatarCell: newActiveCells
@@ -86,6 +91,7 @@ class Board extends React.Component {
       return;
     }
     const newLevel = this.state.level + 1;
+    this.focusInput();
     if (this.state.debug) {
       console.log(`levelUp(); to ${newLevel}`);
     }
@@ -127,7 +133,9 @@ class Board extends React.Component {
       }
       this.setDirectionOfMovement('LEFT');
     } else {
-      console.log('Another key pressed. Do something else.')
+      if (this.state.debug) {
+        console.log('Another key pressed. Nothing happens')
+      }
     }
   }
 
