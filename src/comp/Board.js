@@ -161,9 +161,8 @@ class Board extends React.Component {
     return (
       <div className="game-wrapper">
         <div className="gameboard-wrapper">
-
+          <div className="flex-container">
           <LevelIndicator level={this.state.level} />
-
           <Controls start={this.startGame}
             debug={this.state.debug}
             pause={this.pauseGame}
@@ -172,13 +171,13 @@ class Board extends React.Component {
             gridSize={this.state.gridSize}
             addActiveCell={this.addActiveCell}
             />
-
-          <div className="board">
-            {rows.reverse()}
           </div>
-
+          <div className="flex-container">
+            <div className="board">
+              {rows.reverse()}
+            </div>
+          </div>
           <input id="key-down-controller" className="invisible-input" onKeyDown={(e) => this.handleKeyDown(e)}></input>
-
         </div>
       </div>
     );
