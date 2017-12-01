@@ -25,6 +25,7 @@ class Board extends React.Component {
     this.pauseGame = this.pauseGame.bind(this);
     this.levelUp = this.levelUp.bind(this);
     this.setGridSize = this.setGridSize.bind(this);
+    this.addActiveCell = this.addActiveCell.bind(this);
   }
 
   // Initiate avatar's movement. Focus the hidden input so the game listens for key events.
@@ -68,11 +69,11 @@ class Board extends React.Component {
       console.log('setting new active cells', moving);
       if (this.state.directionOfMovement === moving) {
         this.advanceAvatar(moving);
+        this.setState({
+          activeCells: newActiveCells,
+          avatarCell: newActiveCells
+        });
       }
-      this.setState({
-        activeCells: newActiveCells,
-        avatarCell: newActiveCells
-      });
     }, 1000);
   }
 
@@ -139,6 +140,12 @@ class Board extends React.Component {
     }
   }
 
+  addActiveCell() {
+    if (this.state.debug) {
+      console.log('addActiveCell()');
+    }
+  }
+
   render() {
     let rows = [];
     for (let i = 0; i < this.state.gridSize; i++) {
@@ -161,6 +168,7 @@ class Board extends React.Component {
             levelUp={this.levelUp}
             setGridSize={this.setGridSize}
             gridSize={this.state.gridSize}
+            addActiveCell={this.addActiveCell}
             />
 
           <div className="board">
