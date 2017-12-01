@@ -11,6 +11,7 @@ class Row extends React.Component {
         xCordinate={i}
         yCordinate={this.props.yCordinate}
         activeCells={this.props.activeCells}
+        lureCell={this.props.lureCell}
         />);
     }
 

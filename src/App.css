@@ -43,6 +43,14 @@ body {
   background-color: rgb(20, 143, 176);
 }
 
+.is--luring {
+  background-color: yellow;
+}
+
+.is--chomping {
+  background-color: green;
+}
+
 .buttons {
   padding: 30px;
 }

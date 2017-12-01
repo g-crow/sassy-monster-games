@@ -19,7 +19,8 @@ class Board extends React.Component {
       // The active cell the user controls. Other cells follow.
       avatarCell: [{xCordinate: 0, yCordinate: 9}],
       directionOfMovement: 'RIGHT',
-      keyPressState: 'ACTIVE'
+      keyPressState: 'ACTIVE',
+      lureCell: [{xCordinate: 3, yCordinate: 7}]
     };
     this.startGame = this.startGame.bind(this);
     this.pauseGame = this.pauseGame.bind(this);
@@ -153,6 +154,7 @@ class Board extends React.Component {
         cells={this.state.gridSize}
         yCordinate={i}
         activeCells={this.state.activeCells}
+        lureCell={this.state.lureCell}
         />);
     }
 
