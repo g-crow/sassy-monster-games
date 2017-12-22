@@ -75,7 +75,7 @@ class Board extends React.Component {
           avatarCell: newActiveCells
         });
       }
-    }, 1000);
+    }, 100);
   }
 
   pauseGame() {
