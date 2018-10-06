@@ -54,7 +54,9 @@ body {
 }
 
 .is--luring {
-  background-color: yellow;
+  background-image: url('./images/banana.png');
+  background-position: center;
+  background-size: cover;
 }
 
 .is--chomping {
