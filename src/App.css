@@ -85,6 +85,10 @@ body {
   background-color: rgb(20, 143, 176);
 }
 
+button:focus {
+  outline:0;
+}
+
 .level-indicator {
   padding: 15px;
   border-bottom: 8px solid yellow;
