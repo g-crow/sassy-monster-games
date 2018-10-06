@@ -1,7 +1,7 @@
 import React from 'react';
 
 class Cell extends React.Component {
-  // Check if the cell is active. If so, apply the is--active styling class.
+  // Check the cell state to apply styling classes. Add active cell at chomp
 
   render() {
     let isActive = false;

@@ -1,1 +1,0 @@
--Implement SASS or styled-components. Get rid of the ugly css stylesheet. 

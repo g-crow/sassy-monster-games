@@ -1,10 +1,8 @@
 import React from 'react';
-
 import Row from './Row';
 import Controls from './Controls';
 import LevelIndicator from './LevelIndicator';
 
-// TODO - figure out how to handle key press events without the stupid input workaround
 
 class Board extends React.Component {
 
@@ -15,21 +13,21 @@ class Board extends React.Component {
       level: 1,
       gridSize: 10,
       avatarLength: 1,
+      newActiveCell: [],
       activeCells: [{xCordinate: 0, yCordinate: 9}],
-      // The active cell the user controls. Other cells follow.
       avatarCell: [{xCordinate: 0, yCordinate: 9}],
       directionOfMovement: 'RIGHT',
       keyPressState: 'ACTIVE',
-      lureCell: [{xCordinate: 3, yCordinate: 7}]
+      lureCell: [{xCordinate: 3, yCordinate: 7}],
+      gameState: null
     };
     this.startGame = this.startGame.bind(this);
     this.pauseGame = this.pauseGame.bind(this);
     this.levelUp = this.levelUp.bind(this);
     this.setGridSize = this.setGridSize.bind(this);
-    this.addActiveCell = this.addActiveCell.bind(this);
   }
 
-  // Initiate avatar's movement. Focus the hidden input so the game listens for key events.
+  // Initiate avatar's movement. Focus the hidden input to listen for key events.
   startGame() {
     this.focusInput();
     this.setState({
@@ -75,7 +73,7 @@ class Board extends React.Component {
           avatarCell: newActiveCells
         });
       }
-    }, 100);
+    }, 500);
   }
 
   pauseGame() {
@@ -86,6 +84,11 @@ class Board extends React.Component {
       directionOfMovement: 'SUSPENDED'
     })
   }
+
+  addActiveCell(activeCells) {
+    console.log('add new active cell because chomping', activeCells)
+  }
+
 
   levelUp() {
     if (this.state.level === 10) {
@@ -141,10 +144,12 @@ class Board extends React.Component {
     }
   }
 
-  addActiveCell() {
+  gameOver() {
     if (this.state.debug) {
-      console.log('addActiveCell()');
+      console.log('game over!');
     }
+    this.setState({ gameState: 'GAME_OVER' })
+    alert('Game Over!');
   }
 
   render() {
@@ -160,18 +165,17 @@ class Board extends React.Component {
 
     return (
       <div className="game-wrapper">
+        <LevelIndicator level={this.state.level} />
+        <Controls start={this.startGame}
+          debug={this.state.debug}
+          pause={this.pauseGame}
+          levelUp={this.levelUp}
+          setGridSize={this.setGridSize}
+          addActiveCell={this.addActiveCell}
+          gridSize={this.state.gridSize}
+          activeCells={this.state.activeCells}
+          />
         <div className="gameboard-wrapper">
-          <div className="flex-container">
-          <LevelIndicator level={this.state.level} />
-          <Controls start={this.startGame}
-            debug={this.state.debug}
-            pause={this.pauseGame}
-            levelUp={this.levelUp}
-            setGridSize={this.setGridSize}
-            gridSize={this.state.gridSize}
-            addActiveCell={this.addActiveCell}
-            />
-          </div>
           <div className="flex-container">
             <div className="board">
               {rows.reverse()}

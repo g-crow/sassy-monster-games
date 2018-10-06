@@ -11,7 +11,7 @@ class Controls extends React.Component {
     } else if (command === 'SET_GRID_SIZE') {
       this.props.setGridSize(this.props.gridSize + 1);
     } else if (command === 'ADD_ACTIVE_CELL') {
-      this.props.addActiveCell();
+      this.props.addActiveCell(this.props.activeCells);
     } else {
       console.log('This doesn\'t do anything.');
     }
