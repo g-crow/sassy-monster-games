@@ -50,7 +50,9 @@ body {
 }
 
 .is--active {
-  background-color: rgb(20, 143, 176);
+    background-image: url('./images/snake.png');
+    background-position: center;
+    background-size: cover;
 }
 
 .is--luring {
