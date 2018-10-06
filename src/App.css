@@ -90,7 +90,7 @@ button:focus {
 }
 
 .level-indicator {
-  padding: 15px;
+  padding: 9px;
   border-bottom: 8px solid yellow;
   width: 140px;
   margin: 0 auto;
